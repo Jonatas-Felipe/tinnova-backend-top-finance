@@ -7,6 +7,8 @@ RUN yarn install
 
 COPY . .
 
+RUN yarn knex:migrate
+
 RUN yarn build
 
 EXPOSE 3335
