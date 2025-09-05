@@ -7,8 +7,6 @@ RUN yarn install
 
 COPY . .
 
-RUN yarn knex:migrate
-
 RUN yarn build
 
 COPY docker-entrypoint.sh .
