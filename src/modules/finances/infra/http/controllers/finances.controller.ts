@@ -22,8 +22,8 @@ class FinancesController {
   ) {}
 
   @MessagePattern({ cmd: 'finances_find_all' })
-  async index() {
-    const finances = await this.showAllFinancesService.execute();
+  async index(@Payload() { page }: { page: number | undefined }) {
+    const finances = await this.showAllFinancesService.execute(page);
 
     return finances;
   }

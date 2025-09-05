@@ -49,6 +49,8 @@ class UpdateFinanceService {
 
     await this.financeRepository.save(finance);
 
+    finance.user = user;
+
     return finance;
   }
 }

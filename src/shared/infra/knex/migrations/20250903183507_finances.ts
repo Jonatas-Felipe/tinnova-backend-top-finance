@@ -9,9 +9,9 @@ export async function up(knex: Knex): Promise<void> {
     table.decimal('valor', 10, 2).notNullable();
     table.string('descricao').notNullable();
     table.boolean('is_deleted').defaultTo(false);
-    table.timestamp('created').defaultTo(knex.fn.now());
-    table.timestamp('updated');
-    table.timestamp('deleted');
+    table.timestamp('created_at').defaultTo(knex.fn.now());
+    table.timestamp('updated_at');
+    table.timestamp('deleted_at');
   });
 }
 

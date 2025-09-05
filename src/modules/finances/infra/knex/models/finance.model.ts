@@ -1,3 +1,5 @@
+import IUserResponseDTO from 'src/modules/finances/dtos/IUserReponseDTO';
+
 export default interface Finance {
   id: string;
   user_id: string;
@@ -7,4 +9,5 @@ export default interface Finance {
   created_at?: Date;
   updated_at?: Date;
   deleted_at?: Date;
+  user?: IUserResponseDTO;
 }

@@ -4,6 +4,7 @@ import knex from '../../../../../shared/infra/knex';
 import Finance from '../models/finance.model';
 import ICreateFinanceDTO from '../../../dtos/ICreateFinanceDTO';
 import IFinanceRepository from '../../../repositories/IFinanceRepository';
+import { IPagination } from 'src/@types/interfaces';
 
 class FinancesRepository implements IFinanceRepository {
   private knex: Knex;
@@ -12,12 +13,39 @@ class FinancesRepository implements IFinanceRepository {
     this.knex = knex;
   }
 
-  public async findAll(): Promise<Finance[]> {
-    const finances = this.knex<Finance>('finances')
-      .where({ is_deleted: false })
-      .select('*');
+  public async findAll(
+    page: number | undefined,
+  ): Promise<Finance[] | IPagination<Finance>> {
+    let finances = this.knex<Finance>('finances').where({ is_deleted: false });
 
-    return finances;
+    if (page) {
+      const totalData = (await this.knex<Finance>('finances')
+        .where({ is_deleted: false })
+        .count('*')
+        .first()) as unknown as { count: string };
+
+      const total = parseInt(totalData.count, 10);
+
+      let from = 0;
+      let to = 0;
+
+      const skipCount = (page - 1) * 8;
+      from = (page - 1) * 8 + 1;
+      to = Math.min(from + 8 - 1, total);
+      finances = finances.offset(skipCount).limit(8);
+
+      const financesData: IPagination<Finance> = {
+        data: await finances.select('*'),
+        from,
+        to,
+        total,
+        pages: Math.ceil(total / 8),
+      };
+
+      return financesData;
+    }
+
+    return finances.select('*');
   }
 
   public async findById(id: string): Promise<Finance | undefined> {

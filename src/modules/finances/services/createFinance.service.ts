@@ -36,6 +36,8 @@ class CreateFinanceService {
       ...data,
     });
 
+    finance.user = user;
+
     return finance;
   }
 }
