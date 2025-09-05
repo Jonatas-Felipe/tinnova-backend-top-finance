@@ -9,7 +9,7 @@ async function bootstrap() {
     transport: Transport.TCP,
     options: {
       host: '0.0.0.0',
-      port: 3335,
+      port: process.env.PORT || 3335,
     },
   });
   await app.listen();

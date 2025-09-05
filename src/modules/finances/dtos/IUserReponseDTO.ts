@@ -4,7 +4,7 @@ export default interface IUserResponseDTO {
   email: string;
   status: 'ativo' | 'inativo';
   is_deleted: boolean;
-  created: string;
-  updated: string;
-  deleted: string;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string;
 }
