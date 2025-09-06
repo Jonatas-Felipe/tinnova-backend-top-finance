@@ -16,8 +16,8 @@ import DeleteFinanceService from './services/deleteFinance.service';
         name: 'USERS_SERVICE',
         transport: Transport.TCP,
         options: {
-          host: process.env.USERS_SERVICE_HOST || 'localhost',
-          port: parseInt(process.env.USERS_SERVICE_PORT || '3334', 10),
+          host: process.env.TOP_USERS_HOST || 'localhost',
+          port: parseInt(process.env.TOP_USERS_PORT || '3334', 10),
         },
       },
     ]),
